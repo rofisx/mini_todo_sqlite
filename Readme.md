@@ -1,5 +1,6 @@
 ## Flow clone project
 
+```bash
 git clone
 ↓
 dotnet restore
@@ -11,3 +12,4 @@ dotnet build
 dotnet ef database update
 ↓
 dotnet run
+```
