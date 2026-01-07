@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using todoapi_sqllite.Models;
 
-namespace TodoApi.Data
+namespace todoapi_sqllite.Data
 {
     public class AppDbContext : DbContext
     {
@@ -10,6 +10,6 @@ namespace TodoApi.Data
         {
         }
 
-        public DbSet<Todo> Todos => Set<Todo>();
+        public DbSet<Todo> Todos { get; set; }
     }
 }

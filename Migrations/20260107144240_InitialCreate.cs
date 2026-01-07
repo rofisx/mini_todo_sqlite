@@ -5,7 +5,7 @@
 namespace todoapi_sqllite.Migrations
 {
     /// <inheritdoc />
-    public partial class initialCreatedb : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,5 +1,6 @@
+
 using Microsoft.EntityFrameworkCore;
-using TodoApi.Data;
+using todoapi_sqllite.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,4 +26,5 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 // app.UseAuthorization();
 app.MapControllers();
+app.MapGet("/", () => "Todo API Running");
 app.Run();
