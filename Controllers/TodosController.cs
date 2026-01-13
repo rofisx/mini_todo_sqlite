@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using todoapi_sqllite.Data;
 using todoapi_sqllite.Models;
 
@@ -13,21 +14,42 @@ namespace todoapi_sqllite.Controllers
         {
             _context = context;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var todos = await _context.Todos.ToListAsync();
+
+            if (todos.Count == 0)
+            {
+                return Ok(new { message = "Tidak ada data todo", data = todos });
+            }
+            
+            return Ok(todos);
+        }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var todo = await _context.Todos.FindAsync(id);
             if (todo == null) return NotFound();
             return Ok(todo);
         }
-
+        
         [HttpPost]
-        public async Task<IActionResult> Create(Todo todo)
+        [Consumes("application/json")]
+        public async Task<IActionResult> Create([FromBody] Todo todo)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             _context.Todos.Add(todo);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(Get), new { id = todo.Id }, todo);
+
+            return Ok(new {
+                message = "Todo berhasil dibuat",
+                data = todo
+            });
+
         }
 
         [HttpPut("{id}")]
@@ -39,7 +61,7 @@ namespace todoapi_sqllite.Controllers
             todo.Title = input.Title;
             todo.IsDone = input.IsDone;
             await _context.SaveChangesAsync();
-            return Ok("Data berhasil di update");
+            return Ok(new { data = todo, message = "Update berhasil" });
         }
 
         [HttpDelete("{id}")]
@@ -50,7 +72,7 @@ namespace todoapi_sqllite.Controllers
 
             _context.Todos.Remove(todo);
             await _context.SaveChangesAsync();
-            return Ok("Data berhasil di hapus");
+            return Ok(new { data = todo, message = "Delete berhasil" });
         }
     }
 }
