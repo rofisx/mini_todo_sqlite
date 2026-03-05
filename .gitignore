@@ -8,18 +8,23 @@ obj/
 *.suo
 *.userosscache
 *.sln.docstates
+*.csproj.user
+*.vbproj.user
 
 ## =====================
 ## Build & Publish
 ## =====================
 [Dd]ebug/
 [Rr]elease/
+[Rr]eleases/
 x64/
 x86/
 [Aa]ny [Cc]pu/
 [Ll]og/
+[Ll]ogs/
 publish/
 out/
+build.log
 
 ## =====================
 ## Visual Studio
@@ -27,6 +32,7 @@ out/
 .vs/
 .vscode/
 .idea/
+.config/
 
 ## =====================
 ## Rider
@@ -81,5 +87,9 @@ yarn-error.log*
 ## Secrets
 ## =====================
 secrets.json
+.devdbrc
+.env
+.env.local
+.env.*.local
 
 .fake
